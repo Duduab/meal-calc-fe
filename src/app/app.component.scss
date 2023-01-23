@@ -1,0 +1,29 @@
+@import "./styles/responsive.scss";
+
+
+calculator-calories {
+    direction: rtl;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+
+    @include md {
+        padding: 100px;
+    }
+
+    @include lg {
+        padding: 100px 200px;;
+    }
+
+    @include xl {
+        padding: 100px 350px;;
+    }
+
+    @include xxl {
+        padding: 100px 450px;;
+    }
+
+    @include ultra {
+        padding: 100px 550px;;
+    }
+}
