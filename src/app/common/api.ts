@@ -1,7 +1,7 @@
 export class Api {
 
     public static Calculator = {
-        serverApi: 'https://localhost:5000/api',
+        serverApi: 'https://topaz-mael-calculator-be.herokuapp.com/api/',
         Search: 'GetProduc?name=',
         GetByCode: 'GetDetails?productCode=',
         getImageByCode: 'GetImage?productCode=',

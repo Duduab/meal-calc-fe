@@ -141,7 +141,7 @@ export class CalculatorCaloriesService {
 
   public getNewProductsByInput(text: string, from: number, range: number): Promise<Object | void> {
     // console.log(Api.serverApi);
-    return this.httpClient.get('http://localhost:5000/api/product/search?', {
+    return this.httpClient.get('https://topaz-mael-calculator-be.herokuapp.com/api/product/search?', {
       params: {
         keySearch: text,
         from: from.toString(),

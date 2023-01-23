@@ -1,3 +1,3 @@
 export const environment = {
-    Server: 'http://localhost:5000/api/'
+    Server: 'https://topaz-mael-calculator-be.herokuapp.com/api/'
 };
