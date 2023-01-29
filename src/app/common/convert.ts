@@ -10,11 +10,12 @@ export class Convert {
             return [];
 
         const foodItems: Array<FoodItem> = [];
-        data[0].forEach((item: FoodItem) => {
+        data.forEach((item: FoodItem) => {
             const newItem = new FoodItem();
             newItem.fromServer(item);
             foodItems.push(newItem);
         });
+
         return foodItems;
     }
 
@@ -37,7 +38,8 @@ export class Convert {
             return;
 
         const newItem = new Ingredients();
-        newItem.fromServer(data[0].product_info.Nutritional_Values.table.rows);
+      console.log(data);
+        newItem.fromServer(data);
 
         return newItem;
 

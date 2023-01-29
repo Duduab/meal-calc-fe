@@ -18,12 +18,12 @@
                     <mat-icon class="remove-icon" [ngStyle]="{'color':'#ff8c62'}" (click)="onRemoveItem(item)">
                         remove_circle</mat-icon>
                 </td>
-                <td>{{item.Name ? item.Name : item.trade_item_description}}</td>
+                <td>{{item.Name}}</td>
                 <!-- <td>{{item.Calories.toFixed(2)}}</td> -->
-                <td>{{item.Name?.length > 0 ? item.Proteins.toFixed(2) : getProteins(item)}}</td>
-              <td>{{item.Name?.length > 0 ? item.Carbohydrates.toFixed(2) : getCarbohydrates(item)}}</td>
-              <td>{{item.Name?.length > 0 ? item.Fats.toFixed(2) : getFats(item)}}</td>
-              <td>{{item.Name?.length > 0 ? item.Dessert.toFixed(2) : getDessert(item)}}</td>
+                <td>{{item.Proteins.toFixed(2)}}</td>
+                <td>{{item.Carbohydrates.toFixed(2)}}</td>
+                <td>{{item.Fats.toFixed(2)}}</td>
+                <td>{{item.Dessert.toFixed(2)}}</td>
             </tr>
 
             <tr class="sum" *ngIf="_table.length > 0">

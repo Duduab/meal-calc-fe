@@ -1,4 +1,4 @@
-import { CalculatorCaloriesService } from './../../../services/calculator-calories.service';
+import { CalculatorCaloriesService } from '../../../services/calculator-calories.service';
 import { Component, OnInit } from '@angular/core';
 import { Ingredients } from 'src/app/models/Ingredients';
 

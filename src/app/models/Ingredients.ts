@@ -8,6 +8,8 @@ export class Ingredients {
     public DietaryFiber: number;
     public SaturatedFattyAcids: number;
     public Dessert: number;
+    public Quantity: number;// pay attention
+    public moreDetails: any;
 
     public constructor() {
         this.Id = "";
@@ -18,10 +20,11 @@ export class Ingredients {
         this.DietaryFiber = 0;
         this.SaturatedFattyAcids = 0;
         this.Dessert = 0;
+        this.Quantity = 0; // pay attention
+        this.moreDetails = [];
     }
 
     public fromServer(other: any): void {
-
         other.forEach(element => {
             switch (element.code) {
                 case "79001":

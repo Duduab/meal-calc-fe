@@ -1,4 +1,4 @@
-@import "../../../styles/responsive.scss";
+@import "src/app/styles/responsive";
 
 .product-table {
     table {
@@ -24,7 +24,7 @@
         }
     }
 
-    
+
     td:first-child {
         border: unset;
         background-color: unset !important;
@@ -48,7 +48,7 @@
             border: unset;
             background: white !important;
         }
-        
+
     }
 
     button {

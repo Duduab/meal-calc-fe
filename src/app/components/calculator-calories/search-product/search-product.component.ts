@@ -1,32 +1,35 @@
-import { FoodItemMongoDb } from './../../../models/foodItemMongoDb';
-import { CalculatorCaloriesService } from './../../../services/calculator-calories.service';
-import {ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Observable, fromEvent, of, Subscription, ObservableInput} from 'rxjs';
-import {debounceTime, mergeMap, distinctUntilChanged, toArray, repeat} from 'rxjs/operators';
+import { FoodItemMongoDb } from '../../../models/foodItemMongoDb';
+import { CalculatorCaloriesService } from '../../../services/calculator-calories.service';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Observable, fromEvent, of, Subscription } from 'rxjs';
+import { debounceTime, mergeMap, distinctUntilChanged, toArray } from 'rxjs/operators';
 import { FoodItem } from 'src/app/models/foodItem';
 import { DomSanitizer } from '@angular/platform-browser';
-import {HttpResponse} from '@angular/common/http';
+import {response} from "express";
 
 @Component({
     selector: 'search-product',
     templateUrl: './search-product.component.html',
-    styleUrls: ['./search-product.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['./search-product.component.scss']
 })
 export class SearchProductComponent implements OnInit, OnDestroy {
+
     @ViewChild("filter") filter: ElementRef;
+
     public _isEmptyResult: boolean = true;
     public _isEmptySearch: boolean = false;
-    public newData$: Object | void;
-    public isProccessing: boolean = false;
-    public isLoadMore: boolean = false;
-    public test: boolean = false;
-    public isEmptyMoreResult: boolean = false;
-    private _inputText: string;
+    public isMiniLoaderLoadMore: boolean = false;
+    public inputText: string = '';
+    public isFullObj = false;
+    public dataLength: number = 0;
     public from: number = 0;
     public range: number = 5;
-    public startIndex: number = 0;
-    public constRange = 5;
+    public _data$: Observable<FoodItem[]>;
+    public isProccessing: boolean = false;
+    public isLoadMore: boolean = false;
+    public isEmptyMoreResult: boolean = false;
+
+    private _inputText: string;
 
     private _subscriptions: Array<Subscription>;
 
@@ -43,22 +46,26 @@ export class SearchProductComponent implements OnInit, OnDestroy {
             this._isEmptySearch = !res || res.length == 0;
             this.isProccessing = false;
             this.isLoadMore = false;
-            // this.isEmptyMoreResult = this._calculatorService.IsEmptyResult;
             this.isEmptyMoreResult = !this._calculatorService.productAlreadySearch.find(p => p.TextInput === this._inputText).HaveMoreResult;
 
-            // this.newData = of(this._calculatorService.FoodList).pipe(
-            //     debounceTime(1000),
-            //     mergeMap(x => x),
-            //     distinctUntilChanged(),
-            //     toArray(),
-            // );
+            this._data$ = of(this._calculatorService.FoodList).pipe(
+                debounceTime(1000),
+                mergeMap(x => x),
+                distinctUntilChanged(),
+                toArray(),
+            );
 
         }));
 
+        subscriptions.push(this._calculatorService.registerOnRemoveProduct().subscribe((productId: string) => {
+            this._data$.forEach(el => el.forEach(x => {
+                if (x.Id == productId)
+                    x.IsAdded = false
+            }));
+        }));
 
         subscriptions.push(this._calculatorService.registerOnClearTable().subscribe(() => {
-            // @ts-ignore
-          this.newData$.forEach(el => el.forEach(x => x.IsAdded = false));
+            this._data$.forEach(el => el.forEach(x => x.IsAdded = false));
         }));
 
         subscriptions.push(this._calculatorService.registerOnEmptySearch().subscribe(() => {
@@ -76,46 +83,54 @@ export class SearchProductComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
     }
 
-    convertToBase64(event: any): string {
-      this.isLoadMore = false;
-      this.isProccessing = false;
-      this.test = true;
-      if(event.imgBase64.length > 0) {
-         return 'data:image/jpg;base64,' + (this._sanitizer.bypassSecurityTrustResourceUrl(event.imgBase64) as any).changingThisBreaksApplicationSecurity;
-      }
-      else {
-        let errImage = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==";
-        return 'data:image/jpg;base64,' + (this._sanitizer.bypassSecurityTrustResourceUrl(errImage) as any).changingThisBreaksApplicationSecurity;
-      }
-    }
-
     onKey(event: any): Promise<void> {
         if (event.target.value.length == 0) {
             this._isEmptyResult = true;
             return;
         }
-        this.isLoadMore = true;
-        this._inputText = event.target.value;
-        this._isEmptyResult = true;
+        else {
+          this.isFullObj = true;
+        }
+      this._inputText = event.target.value;
+      this.inputText = event.target.value;
 
-          this.newData$ = fromEvent(this.filter.nativeElement, 'keyup');
-          console.log(this.newData$)
-          // this.newData$.pipe(debounceTime(1000)).subscribe((val) => {
-          //     if (this.isProccessing)
-          //         return;
-          //
-          //     this.isProccessing = true;
-          //     console.log('ok until here');
-          //     this.newData$ = this._calculatorService.getNewProductsByInput(event.target.value);
-          //     this.isProccessing = false;
-          //   console.log('this new Data:');
-          //     console.log(this.newData$);
-          // });
-          this.newData$ = this._calculatorService.getNewProductsByInput(event.target.value, this.from, this.range);
+        this._isEmptyResult = true;
+        this._data$ = fromEvent(this.filter.nativeElement, 'keyup');
+        this._data$.pipe(debounceTime(1000)).subscribe( (val) => {
+          if (this.isProccessing) {
+            return;
+          }
+          this.isProccessing = true;
+          this._calculatorService.IsLoadMore = false;
+          this._calculatorService.getProductsByInput(event.target.value, 0, 5).then(response => {
+            this._data$ = response;
+            if (response.length > 0) {
+              this._isEmptyResult = false;
+            }
+          });
+        });
+
     }
 
+  // tslint:disable-next-line:typedef
+  trackByIndex(index, item) {
+    if(!item) return null;
+    return item && item.id; // or item.id
+  }
+
+  convertToBase64(event: any): string {
+    this.isLoadMore = false;
+    this.isProccessing = false;
+    if(event.Image.length > 0) {
+      return 'data:image/jpg;base64,' + (this._sanitizer.bypassSecurityTrustResourceUrl(event.Image) as any).changingThisBreaksApplicationSecurity;
+    }
+    else {
+      let errImage = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==";
+      return 'data:image/jpg;base64,' + (this._sanitizer.bypassSecurityTrustResourceUrl(errImage) as any).changingThisBreaksApplicationSecurity;
+    }
+  }
+
     public async onAddItem(item: FoodItem | FoodItemMongoDb): Promise<void> {
-      console.log(item);
         item.IsAdded = true;
         item.Quantity = item.Quantity == 0 ? 100 : item.Quantity;
 
@@ -126,19 +141,23 @@ export class SearchProductComponent implements OnInit, OnDestroy {
                 return;
             }
         }
-        await this._calculatorService.getItemIngredients(item);
+
+        await this._calculatorService.getItemIngredients(item, this.inputText, this.from, this.range);
     }
 
     public loadMore(): void {
-      this.test = false;
-      this.isLoadMore = true;
-      this._calculatorService.IsLoadMore = true;
-      this._calculatorService.getMoreItems();
-      this.constRange = 5 + this.constRange;
-      // this.newData$ = this._calculatorService.getNewProductsByInput(this._inputText, 5, 10);
-      this.newData$ = this._calculatorService.getNewProductsByInput(this._inputText, this.startIndex, this.constRange);
-      // console.log(this.newData$.length)
-
+        this.from = this.from + 5;
+        this.isLoadMore = true;
+        this.isMiniLoaderLoadMore = true;
+        this.isEmptyMoreResult  = false;
+        this._calculatorService.IsLoadMore = true;
+        this._calculatorService.getMoreItems();
+        this._calculatorService.getProductsByInput(this._inputText, this.from, this.range).then( response => {
+            this._data$ = response;
+            if (response.length > 0) {
+              this.isMiniLoaderLoadMore = false;
+            }
+        });
     }
 
     onBlur(): void {

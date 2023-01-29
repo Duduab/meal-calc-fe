@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map } from 'rxjs/internal/operators';
+import { catchError, map } from 'rxjs/operators';
 import { environment } from '../environments/environments';
+import { Observable, throwError } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -40,7 +41,7 @@ export class HttpService {
 
                     }),
                     catchError((err) => {
-                        return err;
+                      return throwError(err);
 
                     }))
                 .toPromise();

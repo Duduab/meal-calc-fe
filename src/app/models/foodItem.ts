@@ -5,6 +5,7 @@ export class FoodItem {
     public Quantity: number;
     public IsAdded: boolean;
     public Image: any;
+    public moreDetails: any;
 
     /**
      *
@@ -19,5 +20,7 @@ export class FoodItem {
         this.Id = other.id;
         this.Code = other.product_code;
         this.Description = other.trade_item_description;
+        this.Image = other.imgBase64;
+        this.moreDetails = other.moreDetails;
     }
 }
