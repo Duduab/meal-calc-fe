@@ -371,9 +371,6 @@ export class CalculatorCaloriesService {
         //
         // });
         const result = this.calculateIngredients(item.Quantity, res);
-        console.log(result);
-        console.log(item);
-        console.log(res);
         this._foodTable.push(result);
         this._foodTableSubject.next(this._foodTable);
 

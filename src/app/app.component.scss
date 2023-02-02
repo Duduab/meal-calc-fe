@@ -1,6 +1,5 @@
 @import "src/app/styles/responsive";
 
-
 calculator-calories {
     direction: rtl;
     display: flex;
@@ -12,7 +11,7 @@ calculator-calories {
     }
 
     @include lg {
-        padding: 100px 200px;;
+      padding: 42px 32px 0 146px;
     }
 
     @include xl {

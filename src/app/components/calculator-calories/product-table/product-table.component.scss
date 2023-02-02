@@ -1,27 +1,70 @@
 @import "src/app/styles/responsive";
+@font-face {
+  font-family: 'MPLUSRounded1c-Medium';
+  src: url(../../../../assets/fonts/MPLUSRounded1c-Medium.ttf);
+}
 
 .product-table {
-    table {
+  font-family: MPLUSRounded1c-Medium;
+  table {
         border-collapse: collapse;
         width: 100%;
-    }
+        margin-right: -22px;
+  }
+  //
+  //tr {
+  //  background: red;
+  //  border-radius: 16px 16px 0px 0px;
+  //}
+
+  td {
+    padding-top: 24px !important;
+    padding-bottom: 24px !important;
+  }
+
+  th:last-child  {
+    border-top-left-radius: 16px;
+  }
+
+  th:first-child + th  {
+    border-top-right-radius: 16px;
+    width: 399px;
+    text-align: right;
+  }
+
+  th {
+      height: 51px;
+      background-color: #FF8C62;
+      color: white;
+      font-weight: 800;
+      font-size: 14px;
+      line-height: 21px;
+      text-align: right;
+      letter-spacing: 0.13em;
+  }
 
     td,
     th {
-        border: 2px solid black;
-        padding: 8px;
-        text-align: center;
+        padding: 16px;
+        text-align: right;
         font-size: 2.5vw;
         font-weight: bold;
 
 
         @include md {
             font-size: unset;
+            font-size: unset;
         }
         .remove-icon {
+            box-shadow: rgb(50 50 93 / 25%) 0px 6px 12px -2px, rgb(0 0 0 / 30%) 0px 3px 7px -3px;
             cursor: pointer;
+            color: white;
+            background-color: #FFD7C8;
+            height: 24px;
+            width: 24px;
             border-radius: 50%;
         }
+
     }
 
 
@@ -42,9 +85,9 @@
     }
 
     .sum {
-        background: #ff8c62;
+        color: #ff8c62;
 
-        .empty {
+      .empty {
             border: unset;
             background: white !important;
         }
@@ -59,4 +102,23 @@
         border-radius: 5vw;
         margin-inline-start: 7.5vw;
     }
+
+    .reset-button-container {
+      padding-left: 30px;
+      .reset-button {
+        //margin-block-start: 30px;
+        //margin-block-end: 15px;
+        font-family: MPLUSRounded1c-Medium;
+        background: #FF8C62;
+        font-weight: 800;
+        font-size: 14px;
+        line-height: 21px;
+        text-align: center;
+        color: #FFFFFF;
+        border-radius: 4px;
+        width: 142px;
+        height: 58px;
+      }
+    }
+
 }

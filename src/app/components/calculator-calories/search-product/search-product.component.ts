@@ -15,16 +15,18 @@ import {response} from "express";
 export class SearchProductComponent implements OnInit, OnDestroy {
 
     @ViewChild("filter") filter: ElementRef;
-
     public _isEmptyResult: boolean = true;
     public _isEmptySearch: boolean = false;
     public isMiniLoaderLoadMore: boolean = false;
     public inputText: string = '';
     public isFullObj = false;
+    public disablePrevBtn = true;
+    public disableNextBtn = false;
     public dataLength: number = 0;
     public from: number = 0;
     public range: number = 5;
     public _data$: Observable<FoodItem[]>;
+    public _TempData$: Observable<FoodItem[]>;
     public isProccessing: boolean = false;
     public isLoadMore: boolean = false;
     public isEmptyMoreResult: boolean = false;
@@ -47,7 +49,7 @@ export class SearchProductComponent implements OnInit, OnDestroy {
             this.isProccessing = false;
             this.isLoadMore = false;
             this.isEmptyMoreResult = !this._calculatorService.productAlreadySearch.find(p => p.TextInput === this._inputText).HaveMoreResult;
-
+            this._TempData$ = null;
             this._data$ = of(this._calculatorService.FoodList).pipe(
                 debounceTime(1000),
                 mergeMap(x => x),
@@ -147,18 +149,45 @@ export class SearchProductComponent implements OnInit, OnDestroy {
 
     public loadMore(): void {
         this.from = this.from + 5;
+        if(this.from > 0) {
+          this.disablePrevBtn = false;
+        }
         this.isLoadMore = true;
         this.isMiniLoaderLoadMore = true;
         this.isEmptyMoreResult  = false;
         this._calculatorService.IsLoadMore = true;
         this._calculatorService.getMoreItems();
         this._calculatorService.getProductsByInput(this._inputText, this.from, this.range).then( response => {
-            this._data$ = response;
-            if (response.length > 0) {
-              this.isMiniLoaderLoadMore = false;
-            }
+            // @ts-ignore
+          console.log(this._data$);
+          document.querySelector('#list').scrollIntoView({ behavior: 'smooth', block: 'center' });
+          if (response.length > 0) {
+            this.isMiniLoaderLoadMore = false;
+          }
+          this._data$ = response;
         });
     }
+
+  public goToPreviousResults(): void {
+    this.from = this.from - 5;
+    if(this.from === 0) {
+      this.disablePrevBtn = true;
+    }
+    this.isLoadMore = true;
+    this.isMiniLoaderLoadMore = true;
+    this.isEmptyMoreResult  = false;
+    this._calculatorService.IsLoadMore = true;
+    this._calculatorService.getMoreItems();
+    this._calculatorService.getProductsByInput(this._inputText, this.from, this.range).then( response => {
+      // @ts-ignore
+      console.log(this._data$);
+      document.querySelector('#list').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (response.length > 0) {
+        this.isMiniLoaderLoadMore = false;
+      }
+      this._data$ = response;
+    });
+  }
 
     onBlur(): void {
         this._isEmptyResult = true;

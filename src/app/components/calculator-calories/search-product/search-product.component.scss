@@ -1,31 +1,135 @@
 @import "src/app/styles/responsive";
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");
+@font-face {
+  font-family: 'MPLUSRounded1c-Medium';
+  src: url(../../../../assets/fonts/MPLUSRounded1c-Medium.ttf);
+}
 
 .search-product {
-    display: flex;
-    flex-direction: column;
+  font-family: MPLUSRounded1c-Medium;
+  display: flex;
+  flex-direction: column;
 
-    .calculator-input {
-        font-family: "M PLUS Rounded 1c";
-        font-weight: bold;
-        background: #ff8c62;
-        border-radius: 5vw;
-        border: unset;
-        height: 8vw;
-        width: 40vw;
-        text-align: right;
-        padding-inline-start: 30px;
+  .intro {
+    justify-content: start;
+  }
 
-        @include md {
-            height: 45px;
-        }
+  .intro .exp-title {
+    font-weight: 800;
+    font-size: 20px;
+    line-height: 123.5%;
+  }
 
-        &::placeholder {
-            color: black;
-            font-weight: bold;
-        }
+  .intro .exp-intro {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+
+    a {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 21px;
+      color: #FF8C62;
     }
+  }
 
-    .list {
+  .intro .search-intro {
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 36px;
+    color: #FFC4AE;
+    padding-bottom: 32px;
+  }
+
+  .intro p {
+    padding-right: 20px;
+  }
+
+
+  .intro .intro-icon {
+    padding: 0;
+    margin-top: 1.5px;
+    text-align: end;
+    width: 0;
+  }
+
+  .input-introduction #exp p, #bmiRes p {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 36px;
+    text-align: right;
+    color: #FFC4AE;
+  }
+
+  .calc-input {
+    width: 262px;
+    height: 58px;
+    background: #FFFFFF;
+    border: 1px solid rgba(255, 215, 200, 0.6);
+    box-shadow: 0px 1px 2px rgb(255 215 200 / 60%);
+    border-radius: 4px;
+    padding-right: 18px;
+    font-weight: 800;
+    font-size: 14px;
+    margin-right: 21px;
+    line-height: 21px;
+    color: #B3B3B3 !important;
+
+  }
+
+  .calc-input:hover {
+    text-align: right;
+    color: #B3B3B3;
+  }
+
+
+  .calc-input:focus {
+    text-align: right;
+    color: #FF8C62;;
+    font-weight: 700;
+    background: #FFFFFF;
+    border: 1px solid rgba(255, 215, 200, 0.6);
+    box-shadow: 0px 1px 2px rgba(255, 215, 200, 0.6);
+    border-radius: 4px;
+  }
+
+
+  .calc-input-container {
+    position: relative;
+    color: #aaa;
+    font-size: 16px;
+
+    .short-intro {
+      font-weight: 500;
+      font-size: 10px;
+      line-height: 15px;
+      color: #6D6D6D;
+      margin-right: 21px;
+      padding-top: 4px;
+    }
+  }
+  //
+  //.calc-input-container {
+  //
+  //  display: inline-block;
+  //}
+
+
+  .calc-input-container .fa-search {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
+
+
+  .calc-input-container .fa-search {
+    right: 250px;
+    top: 21px;
+    color: black;
+  }
+
+  .list {
         overflow-y: scroll;
         max-height: 200px;
         margin-block-start: 15px;
@@ -42,13 +146,16 @@
             display: flex;
             align-items: center;
             background-color: white;
-            border: 0.1vw solid rgba(0, 0, 0, 0.2);
+            border: 1px solid #FFD7C8;
             padding: 2vw 2vw;
             color: black;
             cursor: pointer;
+            height: 160px;
 
-            @include md {
-                padding: 1vw 2vw;
+
+          @include md {
+              height: 160px;
+              padding: 24px 16px 16px 10px;
             }
 
             &.selected {
@@ -69,8 +176,8 @@
                 margin: 0 8px;
 
                 @include md {
-                    width: 96px;
-                    height: 96px;
+                    width: 112px;
+                    height: 112px;
                 }
             }
 
@@ -90,8 +197,10 @@
                     }
 
                     @include lg {
-                        font-size: 15px;
+                        font-size: 18px;
                         line-height: 20px;
+                        margin-top: 20px;
+                        padding-right: 24px;
                     }
                 }
 
@@ -106,6 +215,7 @@
                         white-space: nowrap;
                         text-overflow: ellipsis;
                         overflow: hidden;
+                        padding-right: 24px;
 
                         @include sm {
                             font-size: 15px;
@@ -113,18 +223,51 @@
                     }
 
                     .quantity-input {
-                        height: 1.5rem;
-                        width: 18vw;
+                      height: 58px;
+                      width: 87px;
+                      text-align: center;
 
                         @include sm {
-                            width: 70px;
+                          height: 58px;
+                          width: 87px;
+                          text-align: center;
                         }
                     }
 
                     .add-icon {
-                        margin-inline-end: auto;
-                        cursor: pointer;
+                      margin-left: 16px;
+                      margin-top: -37px;
+                      margin-inline-end: auto;
+                      box-shadow: rgb(50 50 93 / 25%) 0px 6px 12px -2px, rgb(0 0 0 / 30%) 0px 3px 7px -3px;
+                      cursor: pointer;
+                      color: white;
+                      border-radius: 100%;
+                      background-color: #FFD7C8;
+                      height: 24px;
+                      width: 24px;
                     }
+                }
+
+                .quantity-intro {
+                  display: flex;
+                  align-items: center;
+                  width: 100%;
+
+                  .text {
+                    font-weight: 500;
+                    font-size: 10px !important;
+                    line-height: 15px;
+                    color: #6D6D6D;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+
+                    padding-right: 24px;
+
+                    @include sm {
+                      font-size: 15px;
+                    }
+                  }
                 }
             }
         }
@@ -135,14 +278,30 @@
         .more-result {
             display: flex;
             justify-content: center;
-            .more-result-button {
-                font-family: "M PLUS Rounded 1c";
-                width: 160px;
-                margin-block-start: 30px;
-                margin-block-end: 15px;
-                background: black;
-                border-radius: 5vw;
-                margin-inline-start: unset;
+            padding: 30px;
+
+          .more-result-button {
+                //font-family: MPLUSRounded1c-Medium;
+                //width: 160px;
+                //margin-block-start: 30px;
+                //margin-block-end: 15px;
+                //background: black;
+                //border-radius: 5vw;
+                //margin-inline-start: unset;
+              font-family: MPLUSRounded1c-Medium;
+              background: #FF8C62;
+              font-weight: 800;
+              font-size: 14px;
+              line-height: 21px;
+              text-align: center;
+              color: #FFFFFF;
+              border-radius: 4px;
+              width: 142px;
+              height: 58px;
+            }
+
+            button:disabled {
+              background-color: rgb(217, 217, 217);
             }
         }
     }
@@ -153,4 +312,8 @@
     display: flex;
     justify-content: center;
     margin-block-start: 10px;
+}
+
+.spinner ::ng-deep .mat-spinner {
+  stroke: red !important;
 }

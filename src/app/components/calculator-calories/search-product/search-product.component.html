@@ -1,28 +1,75 @@
 <div class="search-product">
-    <input type="text" placeholder="חפש" class="form-control calculator-input" #filter (keyup)="onKey($event)">
+  <div class="intro">
+<!--    <div class="row intro">-->
+<!--      <div class="col-1 intro-icon">-->
+<!--        <div id="exp exp-icon">-->
+<!--          <img src="./assets/exp-icon.png" alt="carbon">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="col-11">-->
+<!--        <div class="exp-title">-->
+<!--          <p>הסבר</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <p class="exp-intro">-->
+<!--      חפשו את המזונות אותם אתם נוהגים לאכול מכל החברות מה שלא תמצאו תוכלו <b>להזין בעצמכם.</b><br>-->
+<!--      חלקו או הכפילו בכמות שאכלת ותקבלו את חלוקת המנות של כל מזון ומזון על פי אבות המזון<br>-->
+<!--      המומלצים לכם במחשבון האישי, כך תוכלו לתכנן את האכילה שלכם לרדת במשקל ולשמור על בריאותכם.<br>-->
+<!--      <a href="www.https://www.topazdiet.com/">לטבלת המידות לחץ כאן</a>-->
+<!--    </p>-->
+    <p class="py-2">
+      <b>אני ממליצה לכם להיעזר בתמיכה הקבוצתית ובשיחה עם הדיאטנית</b>
+      כמו גם במגוון התפריטים והמתכונים שתקבלו מממני.
+    </p>
+    <p class="search-intro">
+      אנא חפשו את המוצרים שלכם על מנת להתחיל
+    </p>
+  </div>
+  <div class="calc-input-container">
+    <span class="fa fa-search"></span>
+    <input type="text" placeholder="חפש מוצר" class="form-control calc-input" #filter (keyup)="onKey($event)">
+    <p class="short-intro">
+      הזינו את שם המוצר שנמצא על גבי האריזה ללא סימני פיסוק
+    </p>
+  </div>
 
     <div>
         <div class="list" [ngClass]="{'search': isFullObj}">
-            <div *ngFor="let item of _data$" class="select-info">
+            <div *ngFor="let item of _data$" class="select-info" id="list">
               <img class="food-image" [src]="convertToBase64(item)" alt="" />
                 <div class="food-info">
                     <span class="title">{{item.Description}}</span>
 
-                    <div class="quantity-info">
+                    <div class="quantity-info py-3">
                         <span class="text">כמות (ג):</span>
-                        <input type="number" minlength="0" class="form-control  quantity-input"
+                        <input type="number" minlength="0" class="form-control quantity-input calc-input"
                             [(ngModel)]="item.Quantity">
-                        <mat-icon *ngIf="!item.IsAdded" class="add-icon" [ngStyle]="{'color':'#ff8c62'}"
+                        <mat-icon *ngIf="!item.IsAdded" class="add-icon"
                             (click)="onAddItem(item)">add_circle</mat-icon>
+                    </div>
+                    <div class="quantity-intro">
+                      <span class="text">אנא הזינו גרמים, דוגמא “10”</span>
                     </div>
                 </div>
             </div>
 
             <div class="more-result" *ngIf="!_isEmptyResult">
-                <button *ngIf="!isLoadMore" (click)="loadMore()" class="more-result-button"
-                    mat-raised-button color="primary">
-                    עוד תוצאות
-                </button>
+                <div class="row">
+                  <div class="col-6">
+                    <button *ngIf="!isLoadMore" (click)="goToPreviousResults()" [disabled]="disablePrevBtn" class="more-result-button"
+                            mat-raised-button color="primary">
+                     <  הקודם
+                    </button>
+                  </div>
+                  <div class="col-6">
+                    <button *ngIf="!isLoadMore" (click)="loadMore()" [disabled]="disableNextBtn" class="more-result-button"
+                            mat-raised-button color="primary">
+                      הבא  >
+                    </button>
+                  </div>
+                </div>
+
 
                 <div *ngIf="isMiniLoaderLoadMore" class="spinner">
                     <mat-spinner class="custom-spinner" diameter="20"></mat-spinner>

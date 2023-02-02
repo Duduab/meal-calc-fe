@@ -56,11 +56,10 @@ export class AddProductComponent implements OnInit {
 
         this.quantity = this.quantity ?? 100;
         this.newItem.Carbohydrates = this.newItem.Carbohydrates ?? 0;
-        this.newItem.Dessert = this.newItem.Dessert ? this.newItem.Dessert / 4 : 0;
+        this.newItem.Dessert = this.newItem.Dessert ? (this.quantity / 100 * this.newItem.Dessert) / 4 : 0;
         this.newItem.DietaryFiber = this.newItem.DietaryFiber ?? 0;
         this.newItem.Fats = this.newItem.Fats ?? 0;
         this.newItem.Proteins = this.newItem.Proteins ?? 0;
-
         this._calculatorService.onAddManualyItem(this.quantity, this.newItem);
         this.initItem();
 
