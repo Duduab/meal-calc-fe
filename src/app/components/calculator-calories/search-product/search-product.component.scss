@@ -74,7 +74,7 @@
     font-size: 14px;
     margin-right: 21px;
     line-height: 21px;
-    color: #B3B3B3 !important;
+    color: #FF8C62 !important;
 
   }
 
@@ -127,6 +127,12 @@
     right: 250px;
     top: 21px;
     color: black;
+  }
+
+  .no-results-span {
+    margin-right: 21px;
+    font-size: 16px;
+    font-weight: 700;
   }
 
   .list {
@@ -316,4 +322,17 @@
 
 .spinner ::ng-deep .mat-spinner {
   stroke: red !important;
+}
+
+@media (max-width: 991.98px) {
+  .more-result {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+
+    .more-result-button {
+      width: 128px !important;
+      height: 58px !important;
+    }
+  }
 }

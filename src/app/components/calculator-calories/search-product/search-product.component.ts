@@ -86,7 +86,7 @@ export class SearchProductComponent implements OnInit, OnDestroy {
     }
 
     onKey(event: any): Promise<void> {
-        if (event.target.value.length == 0) {
+      if (event.target.value.length == 0) {
             this._isEmptyResult = true;
             return;
         }
@@ -106,8 +106,15 @@ export class SearchProductComponent implements OnInit, OnDestroy {
           this._calculatorService.IsLoadMore = false;
           this._calculatorService.getProductsByInput(event.target.value, 0, 5).then(response => {
             this._data$ = response;
+            if (response.length == 0) {
+              this.isProccessing = false;
+              this._isEmptyResult = true;
+              this._isEmptySearch = true;
+            }
             if (response.length > 0) {
+              this.isProccessing = false;
               this._isEmptyResult = false;
+              this._isEmptySearch = false;
             }
           });
         });

@@ -69,7 +69,7 @@
     font-size: 14px;
     margin-right: 21px;
     line-height: 21px;
-    color: #B3B3B3 !important;
+    color: #FF8C62 !important;
 
   }
 
@@ -123,5 +123,25 @@
     top: 21px;
     color: black;
   }
+
+}
+
+@media (max-width: 991.98px) {
+  .add-product {
+    font-family: MPLUSRounded1c-Medium;
+    padding-bottom: 12px;
+    padding-top: 8px;
+    .manual-inputs {
+      flex-flow: column !important;
+    }
+    .item {
+      width: 100% !important;
+    }
+
+    .btn {
+      padding-right: 0 !important;
+    }
+  }
+
 
 }

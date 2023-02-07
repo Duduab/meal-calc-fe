@@ -122,3 +122,30 @@
     }
 
 }
+
+@media (max-width: 991.98px) {
+  th {
+    padding: 10px !important;
+  }
+
+  td {
+    padding-right: 10px !important;
+  }
+
+  th:first-child + th  {
+    border-top-right-radius: 16px;
+    width: 399px !important;
+    text-align: right;
+  }
+
+  .reset-button-container {
+    padding-left: 0px !important;
+    .reset-button {
+      width: 128px !important;
+      height: 58px !important;
+    }
+  }
+
+}
+
+

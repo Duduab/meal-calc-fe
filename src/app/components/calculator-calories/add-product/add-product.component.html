@@ -8,8 +8,8 @@
     </a>
 
     <div *ngIf="showFormProduct" class="item-form">
-      <div class="row">
-        <div class="col-4">
+      <div class="row manual-inputs">
+        <div class="col-4 item">
           <div class="py-3">
             <div class="row">
               <input matInput type="text" placeholder="שם מוצר" class="calc-input" [(ngModel)]="newItem.Name">
@@ -19,7 +19,7 @@
             </div>
           </div>
         </div>
-        <div class="col-4">
+        <div class="col-4 item">
           <div class="py-3">
             <div class="row">
               <input matInput type="number" placeholder="גרם" class="calc-input" inputmode="numeric" [(ngModel)]="quantity">
@@ -29,7 +29,7 @@
             </div>
           </div>
         </div>
-        <div class="col-4">
+        <div class="col-4 item">
           <div class="py-3">
             <div class="row">
               <input matInput type="number" placeholder="חלבונים" class="calc-input" inputmode="numeric" [(ngModel)]="newItem.Proteins">
@@ -40,8 +40,8 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-4">
+      <div class="row manual-inputs">
+        <div class="col-4 item">
           <div class="py-3">
             <div class="row">
               <input matInput type="number" placeholder="פחמימות" class="calc-input" inputmode="numeric" [(ngModel)]="newItem.Carbohydrates">
@@ -51,7 +51,7 @@
             </div>
           </div>
         </div>
-        <div class="col-4">
+        <div class="col-4 item">
           <div class="py-3">
             <div class="row">
               <input matInput type="number" placeholder="סיבים" class="calc-input" inputmode="numeric" [(ngModel)]="newItem.DietaryFiber">
@@ -61,7 +61,7 @@
             </div>
           </div>
         </div>
-        <div class="col-4">
+        <div class="col-4 item">
           <div class="py-3">
             <div class="row">
               <input matInput type="number" placeholder="שומנים" class="calc-input" inputmode="numeric" [(ngModel)]="newItem.Fats">
@@ -72,8 +72,8 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-4">
+      <div class="row manual-inputs">
+        <div class="col-4 item">
           <div class="py-3">
             <div class="row">
               <input matInput type="number" placeholder="שומן רווי" class="calc-input" inputmode="numeric" [(ngModel)]="newItem.SaturatedFattyAcids">
@@ -83,7 +83,7 @@
             </div>
           </div>
         </div>
-        <div class="col-4">
+        <div class="col-4 item">
           <div class="py-3">
             <div class="row">
               <input matInput type="number" placeholder="סוכרים" class="calc-input" inputmode="numeric" [(ngModel)]="newItem.Dessert">
@@ -93,9 +93,9 @@
             </div>
           </div>
         </div>
-        <div class="col-4 px-4">
+        <div class="col-4 px-4 item">
           <div class="py-3">
-            <div class="row px-5">
+            <div class="row px-5 btn">
               <button *ngIf="showFormProduct" class="add-button" (click)="addItem()" mat-raised-button color="primary">
                 <span> הוסף לטבלה </span>
               </button>
