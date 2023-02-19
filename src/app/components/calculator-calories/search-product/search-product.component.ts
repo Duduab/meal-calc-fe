@@ -168,8 +168,16 @@ export class SearchProductComponent implements OnInit, OnDestroy {
             // @ts-ignore
           console.log(this._data$);
           document.querySelector('#list').scrollIntoView({ behavior: 'smooth', block: 'center' });
+          if (response.length == 0) {
+            this.isProccessing = false;
+            this._isEmptyResult = true;
+            this._isEmptySearch = true;
+          }
           if (response.length > 0) {
             this.isMiniLoaderLoadMore = false;
+            this.isProccessing = false;
+            this._isEmptyResult = false;
+            this._isEmptySearch = false;
           }
           this._data$ = response;
         });
