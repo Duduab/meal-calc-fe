@@ -60,10 +60,11 @@ export class SearchProductComponent implements OnInit, OnDestroy {
         }));
 
         subscriptions.push(this._calculatorService.registerOnRemoveProduct().subscribe((productId: string) => {
-            this._data$.forEach(el => el.forEach(x => {
-                if (x.Id == productId)
-                    x.IsAdded = false
-            }));
+          this._data$.forEach((x) => {
+            if(x['Id'] === productId) {
+              x['IsAdded'] = false;
+            }
+          });
         }));
 
         subscriptions.push(this._calculatorService.registerOnClearTable().subscribe(() => {

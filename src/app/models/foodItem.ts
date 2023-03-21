@@ -22,5 +22,6 @@ export class FoodItem {
         this.Description = other.trade_item_description;
         this.Image = other.imgBase64;
         this.moreDetails = other.moreDetails;
+        this.IsAdded = false;
     }
 }

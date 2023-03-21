@@ -51,8 +51,8 @@ export class ProductTableComponent implements OnDestroy {
     }
 
     public async onRemoveItem(item: FoodItem): Promise<void> {
+        item.IsAdded = false;
         this._calculatorService.removeItem(item);
-
     }
 
     public clear(): void {

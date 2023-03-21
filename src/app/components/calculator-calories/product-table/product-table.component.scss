@@ -8,7 +8,6 @@
   font-family: MPLUSRounded1c-Medium;
   table {
         border-collapse: collapse;
-        width: 100%;
         margin-right: -22px;
   }
   //
@@ -134,9 +133,10 @@
 
   th:first-child + th  {
     border-top-right-radius: 16px;
-    width: 399px !important;
+    width: 499px !important;
     text-align: right;
   }
+
 
   .reset-button-container {
     padding-left: 0px !important;
